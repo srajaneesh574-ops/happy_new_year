@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wait for it...</title>
+    <style>
+        body {
+            background-color: #fce4ec; /* Soft pink to start hints of the next theme */
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            height: 100vh; margin: 0; font-family: 'Quicksand', sans-serif; text-align: center;
+        }
+        video {
+            width: 90%; max-width: 400px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .msg { margin: 20px; font-weight: bold; color: #ff85a1; font-size: 1.2rem; }
+        button {
+            background: #ff85a1; color: white; border: none; padding: 12px 30px;
+            border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s;
+        }
+        button:hover { transform: scale(1.1); background: #ff6b81; }
+@media (max-width: 600px) {
+    .container, .card, .main-card { 
+        width: 90% !important; /* Forces the card to shrink to fit the phone screen */
+        max-width: 350px; 
+        padding: 15px;
+    }
+    h1 { font-size: 1.5rem; } /* Makes text slightly smaller so it doesn't wrap weirdly */
+    video { width: 100%; } /* Ensures Munmun Srivastava fits the screen! */
+}
+#next-btn {
+        display: none; /* Hidden by default */
+        background: #ff85a1;
+        color: white;
+        padding: 15px 40px;
+        border-radius: 50px;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+    </style>
+</head>
+<body>
+
+      <video id="memeVideo" width="100%" max-width="400px" controls autoplay>
+    <source src="meme.mp4" type="video/mp4">
+</video>
+
+<div id="msg-container" class="msg">
+    "Your ultimate low budget reward😂😂😂(wait)"
+</div>
+
+<button id="next-btn" onclick="window.location.href='celeb.html'">End 😒</button>
+</body>
+<script>
+    const video = document.getElementById('memeVideo');
+    const nextBtn = document.getElementById('next-btn');
+
+    // When the video ends, show the button
+    video.onended = function() {
+        nextBtn.style.display = 'block';
+        // Optional: Scroll to the button so she sees it immediately
+        nextBtn.scrollIntoView({ behavior: 'smooth' });
+    };
+</script>
+</html>

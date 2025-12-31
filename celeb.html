@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Year 2026 Celebration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            --pink: #ff85a1;
+            --soft-yellow: #fff9e6;
+            --text: #4a4a4a;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(-45deg, #fce4ec, #fffde7, #e1f5fe, #f3e5f5);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: var(--text);
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Decorations */
+        .decor { position: absolute; pointer-events: none; opacity: 0.6; z-index: 1; animation: drift 8s ease-in-out infinite; }
+        @keyframes drift { 0%, 100% { transform: translate(0, 0) rotate(0deg); } 50% { transform: translate(20px, -30px) rotate(15deg); } }
+
+        .card {
+            background: rgba(255, 249, 230, 0.96);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            width: 92%;
+            max-width: 420px;
+            text-align: center;
+            display: none;
+            position: relative;
+            z-index: 10;
+            border: 2px solid white;
+            animation: cardAppear 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card.active { display: block; }
+
+        @keyframes cardAppear {
+            from { opacity: 0; transform: scale(0.9) translateY(40px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .img-container { margin: 20px 0; }
+        .my-image { max-width: 200px; border-radius: 20px; animation: bounce 4s ease-in-out infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+        button {
+            background: var(--pink);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(255, 133, 161, 0.3);
+            margin: 10px 5px;
+        }
+
+        button:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(255, 133, 161, 0.4); }
+        button.secondary { background: #81ecec; box-shadow: 0 8px 20px rgba(129, 236, 236, 0.3); }
+
+        /* Envelope */
+        .env-wrapper { width: 180px; height: 120px; background: #ffb1c1; margin: 30px auto; position: relative; border-radius: 0 0 10px 10px; cursor: pointer; }
+        .flap { position: absolute; top: 0; left: 0; width: 0; height: 0; border-left: 90px solid transparent; border-right: 90px solid transparent; border-top: 70px solid var(--pink); transform-origin: top; transition: 0.6s; z-index: 2; }
+        .open .flap { transform: rotateX(180deg); }
+
+        /* Wishes */
+        .wishes { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .wish { background: white; padding: 15px 5px; border-radius: 12px; border: 2px dashed #ffcad4; cursor: pointer; font-size: 0.75rem; transition: 0.3s; }
+        .wish.revealed { background: #fff0f3; border-style: solid; color: var(--pink); font-weight: bold; transform: scale(1.05); }
+
+        /* Timestamp Styling */
+        .timestamp {
+            font-size: 0.8rem;
+            color: var(--pink);
+            margin-top: 15px;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 5px 10px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        /* Outro Animation */
+        .outro-heart { font-size: 5rem; animation: pulseHeart 1.5s infinite; margin-bottom: 15px; }
+        @keyframes pulseHeart {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+button.active-btn { 
+    animation: heartBeat 2s infinite ease-in-out; 
+}
+
+::selection {
+    background: var(--pink);
+    color: white;
+}
+@media (max-width: 600px) {
+    .container, .card, .main-card { 
+        width: 90% !important; /* Forces the card to shrink to fit the phone screen */
+        max-width: 350px; 
+        padding: 15px;
+    }
+    h1 { font-size: 1.5rem; } /* Makes text slightly smaller so it doesn't wrap weirdly */
+    video { width: 100%; } /* Ensures Munmun Srivastava fits the screen! */
+}
+    </style>
+</head>
+<body>
+<div id="intro-overlay">
+    <div class="intro-content">
+        <div class="envelope-icon">📩</div>
+        <h2 class="intro-text">You've unlocked a 2026 message...</h2>
+        <button id="open-btn" onclick="startReveal()">Open Message ✨</button>
+    </div>
+</div>
+
+<style>
+    #intro-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: #fce4ec; /* Matches your theme */
+        display: flex; justify-content: center; align-items: center;
+        z-index: 9999;
+        transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+    }
+    .intro-content { text-align: center; }
+    .envelope-icon { font-size: 80px; animation: bounce 2s infinite; }
+    .intro-text { color: #ff85a1; font-family: 'Quicksand', sans-serif; margin: 20px 0; }
+    
+    #open-btn {
+        background: #ff85a1; color: white; border: none; padding: 15px 40px;
+        border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.1rem;
+    }
+
+    /* Animation to lift the curtain */
+    .reveal-up { transform: translateY(-100%); opacity: 0; }
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+</style>
+
+<script>
+    function startReveal() {
+        const overlay = document.getElementById('intro-overlay');
+        overlay.classList.add('reveal-up');
+        
+        // Start your confetti or music here if you have any!
+        if (typeof confetti === "function") {
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+        }
+    }
+</script>
+
+    <div class="decor" style="top:10%; left:10%; font-size: 3rem;">☁️</div>
+    <div class="decor" style="top:25%; right:15%; font-size: 2rem;">⭐</div>
+    <div class="decor" style="bottom:15%; left:20%; font-size: 1.5rem;">💖</div>
+
+    <div id="app">
+        <section id="step-1" class="card active">
+            <p style="color:var(--pink); font-weight:700;">aj keliye itna hi nahi tha 😏❤️</p>
+            <h1>Happy New Year 2026!</h1>
+            <div class="img-container">
+                <img src="newww.jpeg" alt="🐧🌷" class="my-image">
+            </div>
+            <p>Ready to start your New Year journey?</p>
+            <button onclick="showStep(2)">Begin ✨</button>
+        </section>
+
+        <section id="step-2" class="card">
+            <h1>New Year Letter 💌</h1>
+            <div class="env-wrapper" id="envelope" onclick="openLetter()">
+                <div class="flap"></div>
+                <div style="padding-top:40px; font-size:2rem;">📩</div>
+            </div>
+            <p>Tap to open your letter</p>
+        </section>
+
+        <section id="step-3" class="card">
+            <h1>New Year Letter 💌</h1>
+            <div style="background:white; padding:25px; border-radius:20px; text-align:left; border:1px solid #ffcad4;">
+                <p>Another year done. Some good days, some messy ones.
+I hope 2026 brings you more calm mornings, small wins, and reasons to smile without trying too hard.</p>
+                <p style="text-align:right;">— CHEERSS 🥂</p>
+            </div>
+            <button onclick="showStep(4)">Next ✨</button>
+        </section>
+
+        <section id="step-4" class="card">
+            <h1>A Little Something for 2026</h1>
+            <div class="wishes">
+                <div class="wish" onclick="revealWish(this, 'Lighter days')">🎁</div>
+                <div class="wish" onclick="revealWish(this, 'Real progress')">🎁</div>
+                <div class="wish" onclick="revealWish(this, 'Better health')">🎁</div>
+            </div>
+            <button id="seal-btn" style="display:none;" onclick="sealWish()">Seal This Wish! 🎀</button>
+        </section>
+
+        <section id="step-5" class="card">
+            <div style="font-size:4rem;">🎊</div>
+            <h1>Wish Sealed!</h1>
+            <p>Your journey into 2026 is officially blessed.</p>
+            
+            <div id="time-display" class="timestamp"></div>
+            
+            <div style="margin-top: 20px;">
+                <button onclick="location.reload()">Replay</button>
+                <button class="secondary" onclick="showStep(6)">🐧🌷 </button>
+            </div>
+        </section>
+
+        <section id="step-6" class="card">
+            <div class="outro-heart">❤️</div>
+            <h1 style="color: var(--pink);">🐧🌷</h1>
+            <p>Your year is now filled with warmth and love. Keep that smile shining all through 2026!</p>
+            <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 20px;">I'm so glad to be one hooman in ur life .</p>
+            <button onclick="window.location.href='index.html'">Back to Start</button>
+        </section>
+    </div>
+
+    <script>
+        let wishesFound = 0;
+
+        function showStep(n) {
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('active'));
+            document.getElementById('step-'+n).classList.add('active');
+            
+            // Trigger confetti for both final stages
+            if(n === 5 || n === 6) {
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#ff85a1', '#81ecec', '#ffffff']
+                });
+            }
+        }
+
+        function openLetter() {
+            document.getElementById('envelope').classList.add('open');
+            setTimeout(() => showStep(3), 800);
+        }
+
+        function revealWish(el, text) {
+            if(!el.classList.contains('revealed')) {
+                el.innerHTML = text;
+                el.classList.add('revealed');
+                wishesFound++;
+                if(wishesFound === 3) document.getElementById('seal-btn').style.display = 'inline-block';
+            }
+        }
+
+        function sealWish() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            
+            document.getElementById('time-display').innerHTML = `Sealed on: ${dateStr} at ${timeStr}`;
+            
+            showStep(5);
+        }
+    </script>
+</body>
+</html>
